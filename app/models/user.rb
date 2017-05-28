@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token
   
   before_save { self.email = email.downcase }
@@ -16,6 +17,12 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
+  
+  # 試作feedの定義
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+  
   
   # ランダムなトークンを返す
   def User.new_token
