@@ -13,10 +13,24 @@ class UsersController < ApplicationController
       log_in @user
       # 保存の成功をここで扱う。
       flash[:success] = "Welcome to the Sample App!"
-      
       redirect_to @user
     else
       render 'new'
+    end
+  end
+  
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      # 更新に成功した場合を扱う。
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
     end
   end
   
