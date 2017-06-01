@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       # 保存の成功をここで扱う。
-      flash[:success] = "Welcome to the Sample App!"
+      #flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = i18n_field(:welcome)
       redirect_to @user
     else
       render 'new'
@@ -38,7 +39,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       # 更新に成功した場合を扱う。
-      flash[:success] = "Profile updated"
+      #flash[:success] = "Profile updated"
+      flash[:success] = i18n_field(:updatesuccess)
       redirect_to @user
     else
       render 'edit'
@@ -47,7 +49,9 @@ class UsersController < ApplicationController
   
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    #flash[:success] = "User deleted"
+    flash[:success] = i18n_field(:deletesuccess)
+    
     redirect_to users_url
   end
   
@@ -78,7 +82,9 @@ class UsersController < ApplicationController
     def logged_in_user
       unless logged_in?
         store_location
-        flash[:danger] = "Please log in."
+        #flash[:danger] = "Please log in."
+        flash[:danger] = i18n_field(:plslogin)
+        
         redirect_to login_url
       end
     end

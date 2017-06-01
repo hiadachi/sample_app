@@ -12,7 +12,9 @@ class SessionsController < ApplicationController
     else
       # エラーメッセージを作成する
       #flash[:danger] = 'Invalid email/password combination' # 本当は正しくない
-      flash.now[:danger] = 'Invalid email/password combination'
+      #flash.now[:danger] = 'Invalid email/password combination'
+      flash.now[:danger] = i18n_field(:invalidip)
+      
       render 'new'
     end
   end
